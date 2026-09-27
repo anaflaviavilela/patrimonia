@@ -1,0 +1,28 @@
+{
+  "name": "patrimonia-2.0",
+  "version": "1.0.0",
+  "description": "Backend em Node/Express conectado ao Postgres, com endpoints de cadastro e login, e um site estático simples para usar essas telas.",
+  "main": "server.js",
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "postinstall": "prisma skills sync || exit 0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+   "type": "module",
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "bcrypt": "^6.0.0",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "prisma": "^5.22.0"
+  }
+}

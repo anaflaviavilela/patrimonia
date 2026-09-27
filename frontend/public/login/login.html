@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar — Patrimônia</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="screen">
+    <div class="panel">
+      <a href="index.html" class="logo">Patrimônia</a>
+
+      <div class="panel-mid">
+        <span class="eyebrow">Acesso à conta</span>
+        <h1>Sua carteira, suas decisões, em qualquer lugar.</h1>
+        <p>Entre para acompanhar seus investimentos, gastos e metas financeiras em tempo real.</p>
+
+        <div class="mini-ledger">
+          <div class="row">
+            <div>
+              <div class="label">Patrimônio total</div>
+              <div class="value">R$ 84.320</div>
+            </div>
+            <div class="delta">+12,4%</div>
+          </div>
+          <svg viewBox="0 0 300 46" preserveAspectRatio="none">
+            <path d="M0,38 L30,34 L60,36 L90,26 L120,28 L150,18 L180,22 L210,12 L240,15 L270,6 L300,8" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="panel-foot">© 2026 Patrimônia. Todos os direitos reservados.</div>
+    </div>
+
+    <div class="form-side">
+      <div class="form-card">
+        <div class="mensagem-sucesso" id="mensagem-sucesso"></div>
+
+        <div class="tabs">
+          <div class="tab active" id="tab-entrar" onclick="mostrarAba('entrar')">Entrar</div>
+          <div class="tab" id="tab-cadastro" onclick="mostrarAba('cadastro')">Criar conta</div>
+        </div>
+
+        <!-- LOGIN -->
+        <div id="form-entrar">
+          <h2>Bem-vindo de volta</h2>
+          <p class="sub">Entre com seus dados para acessar sua conta.</p>
+
+          <form>
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" placeholder="seu@email.com" required>
+              <div class="mensagem-erro" id="error-email"></div>
+            </div>
+            <div class="field">
+              <label for="senha">Senha</label>
+              <input type="password" id="senha" placeholder="••••••••" required>
+              <div class="mensagem-erro" id="error-senha"></div>
+            </div>
+
+            <div class="row-between">
+              <label class="checkbox-wrap">
+                <input type="checkbox">
+                Lembrar de mim
+              </label>
+              <a href="#" class="forgot">Esqueceu a senha?</a>
+            </div>
+
+            <button type="submit" class="btn-primary">Entrar</button>
+          </form>
+
+          <div class="divider">ou</div>
+
+          <p class="switch-line">Ainda não tem conta? <button type="button"
+              onclick="mostrarAba('cadastro')">Cadastre-se</button></p>
+        </div>
+
+        <!-- CADASTRO -->
+        <div id="form-cadastro">
+          <h2>Criar sua conta</h2>
+          <p class="sub">Leva menos de dois minutos.</p>
+
+          <form>
+            <div class="field">
+              <label for="nome">Nome completo</label>
+              <input type="text" id="nome" placeholder="Seu nome" required>
+              <div class="mensagem-erro" id="error-nome"></div>
+            </div>
+            <div class="field">
+              <label for="email-cad">E-mail</label>
+              <input type="email" id="email-cad" placeholder="seu@email.com" required>
+              <div class="mensagem-erro" id="error-email-cad"></div>
+            </div>
+            <div class="field">
+              <label for="senha-cad">Senha</label>
+              <input type="password" id="senha-cad" placeholder="Crie uma senha" required>
+              <div class="mensagem-erro" id="error-senha-cad"></div>
+            </div>
+            <div class="field">
+              <label for="senha-conf">Confirmar senha</label>
+              <input type="password" id="senha-conf" placeholder="Repita a senha" required>
+              <div class="mensagem-erro" id="error-senha-conf"></div>
+            </div>
+
+            <label class="terms">
+              <input class="form-check-input" type="checkbox" id="termos" required>
+              <span>Li e aceito os <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a> da
+                Patrimônia.</span>
+              <div class="mensagem-erro" id="error-termos"></div>
+            </label>
+
+            <button type="submit" class="btn-primary">Criar conta</button>
+          </form>
+
+          <div class="divider">ou</div>
+
+          <p class="switch-line">Já tem conta? <button type="button" onclick="mostrarAba('entrar')">Entrar</button></p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+
+</body>
+
+</html>

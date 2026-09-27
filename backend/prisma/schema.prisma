@@ -1,0 +1,164 @@
+// ============================================================================
+// Patrimônia 2.0 — schema.prisma
+// Plataforma de controle de patrimônio líquido, investimentos e finanças pessoais
+// ============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ============================================================================
+// ENUMS
+// ============================================================================
+
+// Enum unificado, usado tanto em Category quanto em Transaction.
+// Category.type define o "tipo permitido" da categoria;
+// Transaction.type deve ser validado na camada de serviço para
+// sempre bater com o type da Category referenciada (ver Opção B da spec).
+enum TransactionType {
+  INCOME
+  EXPENSE
+  INVESTMENT
+}
+
+enum AssetTransactionType {
+  BUY
+  SELL
+}
+
+// ============================================================================
+// USER
+// ============================================================================
+
+model User {
+  id            String   @id @default(uuid()) @db.Uuid
+  name          String
+  email         String   @unique
+  password_hash String
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  categories         Category[]
+  transactions       Transaction[]
+  assets             Asset[]
+
+  @@map("users")
+}
+
+// ============================================================================
+// CATEGORY
+// ============================================================================
+
+model Category {
+  id         String          @id @default(uuid()) @db.Uuid
+  user_id    String          @db.Uuid
+  name       String
+  type       TransactionType
+  created_at DateTime        @default(now())
+  updated_at DateTime        @updatedAt
+
+  user         User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@index([user_id])
+  @@map("categories")
+}
+
+// ============================================================================
+// TRANSACTION
+// ============================================================================
+
+model Transaction {
+  id          String          @id @default(uuid()) @db.Uuid
+  user_id     String          @db.Uuid
+  category_id String          @db.Uuid
+  amount      Decimal         @db.Decimal(15, 2)
+  description String
+  date        DateTime
+  // Mantido e validado obrigatoriamente contra category.type na
+  // camada de serviço (nunca confiar apenas no client). Ver nota
+  // de validação em application/services/transaction.service.
+  type        TransactionType
+  created_at  DateTime        @default(now())
+  updated_at  DateTime        @updatedAt
+
+  user     User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  // Restrict: impede apagar uma categoria que ainda tem transações vinculadas.
+  // O app deve orientar o usuário a reatribuir ou apagar as transações antes.
+  category Category @relation(fields: [category_id], references: [id], onDelete: Restrict)
+
+  // Elo opcional com AssetTransaction: quando type = INVESTMENT e a transação
+  // representa um aporte/venda de ativo, ela é criada atomicamente junto com
+  // a AssetTransaction correspondente (ver AssetService.registerAssetTransaction).
+  // Permite ao dashboard excluir esse valor do somatório de "despesas do mês"
+  // (é realocação de patrimônio, não gasto) e evita contagem duplicada.
+  asset_transaction AssetTransaction?
+
+  @@index([user_id])
+  @@index([date])
+  @@index([user_id, date]) // acelera filtros por período por usuário (o caso mais comum)
+  @@map("transactions")
+}
+
+// ============================================================================
+// ASSET
+// ============================================================================
+
+model Asset {
+  id            String   @id @default(uuid()) @db.Uuid
+  user_id       String   @db.Uuid
+  ticker        String
+  quantity      Decimal  @db.Decimal(18, 8) // suporta frações (ex: criptomoedas)
+  // average_price é persistido e recalculado a cada nova AssetTransaction
+  // (ver application/services/asset.service > recalculateAveragePrice).
+  // Alternativa aceitável: calcular sempre on-the-fly via agregação,
+  // trocando por uma view/query — decisão de performance vs simplicidade.
+  average_price Decimal  @db.Decimal(15, 2)
+  // current_price NÃO deve ser a fonte de verdade para cotação ao vivo:
+  // a cotação em tempo real vive no cache Redis (TTL). Este campo aqui
+  // serve apenas como último snapshot conhecido, para fallback offline
+  // ou exibição quando o cache expira antes de nova consulta à API externa.
+  current_price Decimal? @db.Decimal(15, 2)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  user         User             @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  transactions AssetTransaction[]
+
+  @@unique([user_id, ticker]) // um usuário tem no máximo um registro consolidado por ticker
+  @@index([user_id])
+  @@index([ticker]) // busca eficiente fora do escopo de um usuário (ex: painel admin, ranking de ativos)
+  @@map("assets")
+}
+
+// ============================================================================
+// ASSET TRANSACTION (histórico de compras/vendas — base do preço médio)
+// ============================================================================
+
+model AssetTransaction {
+  id             String               @id @default(uuid()) @db.Uuid
+  asset_id       String               @db.Uuid
+  // Elo opcional com a Transaction de fluxo de caixa (type = INVESTMENT)
+  // criada atomicamente junto com esta linha. SetNull: se a Transaction
+  // for apagada, a AssetTransaction permanece (o histórico do ativo não
+  // deve desaparecer por causa da exclusão do lançamento de caixa).
+  transaction_id String?              @unique @db.Uuid
+  type           AssetTransactionType
+  quantity       Decimal              @db.Decimal(18, 8)
+  unit_price     Decimal              @db.Decimal(15, 2)
+  date           DateTime
+  created_at     DateTime             @default(now())
+
+  asset       Asset        @relation(fields: [asset_id], references: [id], onDelete: Cascade)
+  transaction Transaction? @relation(fields: [transaction_id], references: [id], onDelete: SetNull)
+
+  @@index([asset_id])
+  @@index([asset_id, date])
+  @@map("asset_transactions")
+}

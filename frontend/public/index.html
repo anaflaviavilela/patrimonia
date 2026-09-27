@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patrimônia — Controle seus investimentos</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo">Patrimônia</a>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#recursos">Recursos</a></li>
+        <li><a href="#sobre">Sobre Nós</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login/login.html" class="link-btn">Entrar</a>
+        <a href="login/login.html#cadastro" class="btn-gold">Cadastrar</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" id="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Plataforma de investimentos</span>
+        <h1>Controle seus investimentos com <em>clareza</em>, do primeiro real ao seu objetivo.</h1>
+        <p class="lede">A Patrimônia reúne carteira, análises de mercado e alertas num só painel — para você decidir com
+          dados, não com achismo.</p>
+        <div class="hero-cta">
+          <a href="login/login.html#cadastro" class="btn-gold">Cadastrar gratuitamente</a>
+          <a href="#recursos" class="link-arrow">Ver recursos →</a>
+        </div>
+      </div>
+
+      <div class="ledger-wrap">
+        <div class="ledger-card">
+          <span class="float-badge">Em tempo real</span>
+          <div class="ledger-top">
+            <div>
+              <div class="ledger-label">Patrimônio total</div>
+              <div class="ledger-value">R$ 84.320</div>
+            </div>
+            <div class="ledger-delta">+12,4% no mês</div>
+          </div>
+
+          <svg class="ledger-chart" viewBox="0 0 320 110" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#E7B24E" stop-opacity="0.35" />
+                <stop offset="100%" stop-color="#E7B24E" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+            <path class="fill"
+              d="M0,90 L20,82 L45,86 L70,64 L95,70 L120,50 L145,58 L170,38 L195,44 L220,26 L245,32 L270,14 L295,20 L320,6 L320,110 L0,110 Z" />
+            <path class="line"
+              d="M0,90 L20,82 L45,86 L70,64 L95,70 L120,50 L145,58 L170,38 L195,44 L220,26 L245,32 L270,14 L295,20 L320,6" />
+          </svg>
+
+          <div class="ledger-rows">
+            <div class="ledger-row">
+              <span class="name"><span class="dot gold"></span>Renda variável</span>
+              <span class="val up">+8,2%</span>
+            </div>
+            <div class="ledger-row">
+              <span class="name"><span class="dot mint"></span>Renda fixa</span>
+              <span class="val up">+1,1%</span>
+            </div>
+            <div class="ledger-row">
+              <span class="name"><span class="dot rose"></span>Fundos imobiliários</span>
+              <span class="val down">-0,6%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat">
+        <div class="num">R$ 2,4 bi</div>
+        <div class="lbl">Em ativos monitorados na plataforma</div>
+      </div>
+      <div class="stat">
+        <div class="num">48 mil</div>
+        <div class="lbl">Investidores usando a Patrimônia</div>
+      </div>
+      <div class="stat">
+        <div class="num">4,9 / 5</div>
+        <div class="lbl">Avaliação média nas lojas de apps</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sobre" id="sobre">
+    <div class="container sobre-inner">
+      <span class="section-eyebrow">Sobre a Patrimônia</span>
+      <h2>Feito para quem quer investir com inteligência, não com ansiedade.</h2>
+      <p>A Patrimônia é a plataforma para quem deseja investir de forma mais estratégica. Reunimos ferramentas para
+        acompanhar seus investimentos, analisar o mercado e tomar decisões com base em dados — para você alcançar seus
+        objetivos financeiros com segurança e praticidade.</p>
+    </div>
+  </section>
+
+  <section class="recursos" id="recursos">
+    <div class="container">
+      <div class="recursos-head">
+        <span class="section-eyebrow" style="color:var(--gold);">Recursos</span>
+        <h2>Tudo o que sua carteira precisa, num só lugar</h2>
+      </div>
+      <div class="recursos-grid">
+        <div class="card">
+          <span class="mark">Carteira</span>
+          <h3>Gestão de carteira</h3>
+          <p>Acompanhe todos os seus ativos consolidados, com rentabilidade atualizada em tempo real.</p>
+        </div>
+        <div class="card">
+          <span class="mark">Mercado</span>
+          <h3>Análise de mercado</h3>
+          <p>Indicadores e comparativos claros para embasar cada decisão de compra ou venda.</p>
+        </div>
+        <div class="card">
+          <span class="mark">Alertas</span>
+          <h3>Alertas inteligentes</h3>
+          <p>Receba avisos sobre variações relevantes e oportunidades alinhadas ao seu perfil.</p>
+        </div>
+        <div class="card">
+          <span class="mark">Segurança</span>
+          <h3>Dados protegidos</h3>
+          <p>Criptografia de ponta a ponta e autenticação em duas etapas em toda a plataforma.</p>
+        </div>
+        <div class="card">
+          <span class="mark">Metas</span>
+          <h3>Objetivos financeiros</h3>
+          <p>Defina metas e veja o quanto falta para alcançá-las, com projeções realistas.</p>
+        </div>
+        <div class="card">
+          <span class="mark">Relatórios</span>
+          <h3>Relatórios mensais</h3>
+          <p>Um resumo claro da sua evolução patrimonial, direto no seu e-mail todo mês.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Comece a investir com mais clareza hoje.</h2>
+      <p>Cadastro gratuito. Leva menos de dois minutos.</p>
+      <a href="login/login.html#cadastro" class="btn-gold">Criar minha conta</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container foot-row">
+      <span class="logo">Patrimônia</span>
+      <span>© 2026 Patrimônia. Todos os direitos reservados.</span>
+    </div>
+  </footer>
+
+</body>
+
+</html>
