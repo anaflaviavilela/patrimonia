@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Backend em Node/Express conectado ao Postgres, com endpoints de cadastro e login, e um site estático simples para usar essas telas.",
   "main": "server.js",
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
@@ -13,12 +12,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-   "type": "module",
+  "type": "module",
   "dependencies": {
     "@prisma/client": "^5.22.0",
     "bcrypt": "^6.0.0",
     "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3"
+    "jsonwebtoken": "^9.0.3",
+    "nodemailer": "^10.0.13"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
