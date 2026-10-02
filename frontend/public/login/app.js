@@ -1,6 +1,6 @@
 /*BEGIN - CONFIGURAÇÃO DA API */
 /*const API_URL = 'http://localhost:3000/api';*/
-const API_URL = 'https://patrimonia-api.onrender.com';
+const API_URL = 'https://patrimonia-api.onrender.com/api';
 /*END - CONFIGURAÇÃO DA API */
 
 /*BEGIN - FUNÇÕES DE VALIDAÇÃO E UI */
