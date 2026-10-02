@@ -1,10 +1,17 @@
 import express from 'express';
 import authRoutes from './src/routes/auth.routes.js';
 import cors from 'cors';
+import helmet from 'helmet';
 
 const app = express();
 
-app.use(cors());
+app.use(helmet());
+
+app.use(cors({
+  origin: 'https://patrimonia-frontend.vercel.app', 
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Rotas da API
